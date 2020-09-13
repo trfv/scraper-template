@@ -1,0 +1,2 @@
+# scraper-template
+スクレイピングのテンプレートです。
