@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "koutou"
+name = "scraper"
 version = "0.1.0"
-description = "koutou scraper"
+description = "scraper template"
 authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
-python = "3.8"
+python = "^3.8"
 selenium = "^3.141.0"
 psycopg2 = "^2.8.5"
 python-dotenv = "^0.13.0"

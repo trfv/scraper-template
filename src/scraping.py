@@ -1,15 +1,26 @@
 import logging
+import os
+import time
+
+import dotenv
 from selenium import webdriver
 
 logger = logging.getLogger(__name__)
 
+
+dotenv.load_dotenv()
+CHROMEDRIVER_PATH = os.environ.get("CHROMEDRIVER_PATH", "")
+GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", "")
+
+ROOT_URL = "" # TODO set root url
+
 class Scraping():
-    data = None
-    def __init__(self, chromedriver_path, google_chrome_bin):
+    def __init__(self):
+        self.data = []
         chrome_options = webdriver.ChromeOptions()
 
-        if google_chrome_bin:
-            chrome_options.binary_location = google_chrome_bin
+        if GOOGLE_CHROME_BIN:
+            chrome_options.binary_location = GOOGLE_CHROME_BIN
             chrome_options.add_argument("--headless")
 
         chrome_options.add_argument("--disable-application-cache")
@@ -26,18 +37,23 @@ class Scraping():
         chrome_options.add_argument("--start-maximized")
 
         self.driver = webdriver.Chrome(
-            executable_path=chromedriver_path, chrome_options=chrome_options,
+            executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options,
         )
         self.driver.implicitly_wait(30)
 
     def main(self):
+        self.__prepare()
         self.__scraping()
         self.__finish()
         return self.data
 
+    def __prepare(self):
+        self.driver.get(ROOT_URL)
+        # TODO implement prepare logic
+
     def __scraping(self):
-        # TODO implement this
-        self.data = {}
+        # TODO implement scraping logic
+        pass
 
     def __finish(self):
         self.driver.quit()
